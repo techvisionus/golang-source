@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    networks:
+      - backend
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=commerce
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./api/config/init.sql:/docker-entrypoint-initdb.d/init.sql
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    environment:
+      - GO_ENV=production
+    depends_on:
+      - postgres
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    driver: bridge
