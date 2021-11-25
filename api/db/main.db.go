@@ -54,6 +54,7 @@ func Init() {
 }
 
 func connectToString(info connection) string{
-	return fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable",
+	// fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable"
+	return fmt.Sprintf("postgresql://%s:%s@%s:%s/%s",
 	info.User, info.Password, info.Host, info.Port, info.DBName)
 }
