@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	database "github.com/techvisionus/golang-source/api/db"
 	"github.com/techvisionus/golang-source/api/routes/v1"
@@ -24,8 +25,8 @@ func main() {
 
 	v1 := router.Group("/api/v1")
 	routes.GetRoutesV1(v1)
-
-	router.Run(":3000")
+	port := os.Getenv("PORT")
+	router.Run(":"+ port)
 }
 
 

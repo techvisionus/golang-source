@@ -8,6 +8,8 @@ WORKDIR /app
 # This allows the container build to reuse cached dependencies.
 # Expecting to copy go.mod and if present go.sum.
 COPY go.* ./
+ENV PORT 3000
+
 RUN go mod download
 
 # Copy local code to the container image.
